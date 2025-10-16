@@ -3,7 +3,6 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   lang: 'zh-CN',
-  base: "/vitepress_blog/",
   title: "全栈笔记",
   description: "软件开发知识分享",
   themeConfig: {
