@@ -137,3 +137,9 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+/**
+ * Layout: Max Width
+ * -------------------------------------------------------------------------- */
+:root {  
+  --vp-layout-max-width: 100%;
+}

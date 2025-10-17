@@ -1,0 +1,15 @@
+/** 文档内容宽度 */
+.VPDoc.has-aside .content-container {
+    max-width: 100% !important;
+  width: 100% !important;
+}
+
+/** 文档中的链接无下划线 */
+.vp-doc a {
+    text-decoration: none;
+}
+
+/** 文档中的h2标题 */
+.vp-doc h2 {
+    margin: 20px 0 16px;
+}
