@@ -4,9 +4,9 @@ import { computed, ref, onMounted } from 'vue'
 import { countWord } from '../utils/functions'
 
 const { page } = useData()
-console.log(page.value)
+
 const date = computed(
-    () => new Date(page.value.lastUpdated)
+    () => new Date(page.value.lastUpdated || page.value.frontmatter.date)
 )
 
 const wordCount = ref(0)

@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "全栈笔记"
   text: "软件开发知识分享"
-  tagline: NodeJS VUE UniApp
+  tagline: "学途有径，一路同行"
   image:
     src: /home-icon.png
     alt: VitePress
@@ -18,10 +18,8 @@ hero:
       link: https://github.com/node-red/node-red
 
 features:
-  - icon: 📖
-    title: Node-Red
-    details: 从零开始学习Node-Red的基础概念和使用方法
+  - title: 从零开始学习Node-Red
+    details: 从基础开始，快速掌握Node-Red的使用方法。
     link: /docs/Node-Red/部署与启动
     linkText: 开始学习
 ---
-

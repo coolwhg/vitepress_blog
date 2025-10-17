@@ -1,6 +1,6 @@
 import {defineConfig} from 'vitepress'
 /** 侧边栏插件 */
-import {generateSidebar} from 'vitepress-sidebar'
+import {withSidebar} from 'vitepress-sidebar'
 /** 图标插件 */
 import {groupIconMdPlugin, groupIconVitePlugin} from 'vitepress-plugin-group-icons'
 /** 代码组中添加图片 */
@@ -12,29 +12,44 @@ import timeline from 'vitepress-markdown-timeline'
 /** 导航栏 */
 import nav from './nav.mjs'
 
-const vitepressSidebarOptions = {
-    documentRootPath: '/docs',
-    collapsed: false, //折叠组关闭
-    collapseDepth: 2, //折叠组2级菜单
-    removePrefixAfterOrdering: true, //删除前缀，必须与prefixSeparator一起使用
-    prefixSeparator: '_', //删除前缀的符号
-}
+/** 侧边栏配置 */
+const vitePressSidebarOptions = [
+    {
+        // 文档文件所在的顶级路径
+        documentRootPath: '/docs',
+        // 扫描文档列表的根目录路径
+        scanStartPath: 'Node-Red',
+        // 如果路径因VitePress的重写选项而改变,则可以使用此选项
+        basePath: '/docs/Node-Red/',
+        // 使用h1的标题作为侧边栏的标题
+        useTitleFromFileHeading: true,
+        // 使用文件夹的index.md
+        useFolderTitleFromIndexFile: true,
+        // 指向文件夹的链接
+        useFolderLinkFromIndexFile: true,
+        // 根据md文件的order进行排序
+        sortMenusByFrontmatterOrder: true,
+        // 排序之后将不是文件夹的放后面
+        sortFolderTo: 'top',
+        // 菜单展开功能
+        collapsed: false,
+    },
+]
 
-// https://vitepress.dev/reference/site-config
-export default defineConfig({
+const vitePressOptions = {
     lang: 'zh-CN',
     title: '全栈笔记',
     description: '软件开发知识分享',
+    head: [['link', {rel: 'icon', href: '/favicon.ico'}]],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
-        darkModeSwitchLabel: '切换主题',
+        darkModeSwitchTitle: '深色主题',
+        lightModeSwitchTitle: '浅色主题',
         sidebarMenuLabel: '目录',
+        logo: '/logo.svg',
         nav: nav,
-        sidebar: generateSidebar(vitepressSidebarOptions),
         //返回顶部文字修改
         returnToTopLabel: '返回顶部',
-        // 最后更新时间戳
-        lastUpdated: true,
         // 页面导航
         outline: {
             level: [2, 4], // 显示2-4级标题
@@ -43,8 +58,8 @@ export default defineConfig({
         },
         // 文档页脚
         docFooter: {
-            prev: '上一页',
-            next: '下一页',
+            prev: '上一篇',
+            next: '下一篇',
         },
         //上次更新时间
         lastUpdated: {
@@ -65,16 +80,29 @@ export default defineConfig({
                         buttonAriaLabel: '搜索文档',
                     },
                     modal: {
-                        noResultsText: '无法找到相关结果',
-                        resetButtonTitle: '清除查询条件',
+                        searchBox: {
+                            resetButtonTitle: '清除查询条件',
+                            resetButtonAriaLabel: '清除查询条件',
+                            cancelButtonText: '取消',
+                            cancelButtonAriaLabel: '取消',
+                        },
                         footer: {
                             selectText: '选择',
                             navigateText: '切换',
                             closeText: '关闭',
+                            searchByText: '搜索提供者',
                         },
+                        noResultsText: '无法找到相关结果',
+                        resetButtonTitle: '清除查询条件',
                     },
                 },
             },
+        },
+        //404页面的配置
+        notFound: {
+            title: '页面未找到',
+            quote: '哎呀，您好像迷失在网络的小胡同里啦，别着急，赶紧回头是岸！',
+            linkText: '返回首页',
         },
     },
     markdown: {
@@ -126,4 +154,6 @@ export default defineConfig({
             noExternal: ['mermaid'],
         },
     },
-})
+}
+// https://vitepress.dev/reference/site-config
+export default defineConfig(withSidebar(vitePressOptions, vitePressSidebarOptions))
